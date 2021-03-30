@@ -1,0 +1,10 @@
+v 0.1
+d 'did': Use the Callaway and Sant'anna R package 'did' in Stata
+d 
+d Use the Callaway and Sant'anna (2020) estimator for staggered-treatment DID in Stata.
+d 
+d Distribution-Date:   20210330
+d License: MIT
+d 
+F didsetup.ado
+F didsetup.sthlp

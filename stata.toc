@@ -3,6 +3,6 @@ d Materials by N. Huntington-Klein
 d nhuntington-klein@seattleu.edu
 d http://nickchk.com
 
-d 'did': Use the Callaway and Sant'anna R package 'did' using Stata
+d 'did': Use the Callaway and Sant'anna R package 'did' in Stata
 
 p did
