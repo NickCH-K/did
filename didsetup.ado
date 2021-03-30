@@ -5,12 +5,9 @@ prog def didsetup
 
 	if "`go'" == "" {
 	
-		display "This function will set up the proper packages"
-		display "(github and rcall in Stata)"
-		display "necessary to use R in Stata."
-		display "These are both installed from GitHub"
+		display "This function will set up the proper packages (github and rcall in Stata) necessary to use R in Stata."
+		display "These are both installed from GitHub and are not maintained by StataCorp or me."
 		local url1 = `""https://journals.sagepub.com/doi/10.1177/1536867X19830891""'
-		display "and are not maintained by StataCorp or me."
 		display "For more information on github and rcall, see {browse " `"`url1'"' ":the Stata Journal publication by Haghish}."
 		display ""
 		display "This will also install all of the R packages that did can use."
@@ -18,6 +15,7 @@ prog def didsetup
 		display "Finally, this setup requires that R is ALREADY installed on your machine."
 		local urlR = `""https://www.r-project.org/""'
 		display "R can be installed at {browse " `"`urlR'"' ":R-Project.org}. Do that first if it's not already installed."
+		display as error "You will likely see a lot of flashing windows as R calls open and close, both when this function and other did functions run. That is expected. If you are sensitive to flashing lights you may want to look away."
 		display "Do you want to continue? Type Y or Yes to continue, and anything else to quit."
 		display _request(start)
 		
@@ -29,8 +27,7 @@ prog def didsetup
 		}
 		
 		display "Should setup check for updated versions of packages?"
-		display "Type Y or yes to check for updates, and anything else to only install packages"
-		display "if they are completely missing."
+		display "Type Y or yes to check for updates, and anything else to only install packages if they are completely missing."
 		display _request(upd)
 		
 		local st = lower("$upd")

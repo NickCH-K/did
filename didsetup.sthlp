@@ -37,6 +37,8 @@
 {pstd}
 R must be installed first before running {cmd:didsetup}, and R must be callable from the command line. You can install R at {browse "https://www.r-project.org/":R-Project.org}. If after installing R, {cmd: rcall} is still having trouble finding your R installation, see the {browse "http://www.haghish.com/packages/Rcall.php":rcall website} for troubleshooting tips. Likely, your R installation is just not where it expects.
 
+Note that running didsetup, or any other function in the did package, will often produce lots of bright windows that pop up and disappear. If you are sensitive to flashing lights you may want to look away.
+
 {pstd}
 If {cmd:rcall} seems to be working fine, but R package installation is giving you problems, then open up R and copy/paste the following commands one at a time. If one fails, check the error message to see if it's something you can fix (sometimes you need to delete the "00LOCK" folder that shows up in your subdirectory of R packages), or maybe just try it again before moving on to the next:
       
@@ -52,7 +54,7 @@ If {cmd:rcall} seems to be working fine, but R package installation is giving yo
 {title:Author}
 
 Nick Huntington-Klein
-nhuntington-klein@fullerton.edu
+nhuntington-klein@seattleu.edu
 
 {marker references}{...}
 {title:References}
