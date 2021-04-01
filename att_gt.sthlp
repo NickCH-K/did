@@ -51,6 +51,7 @@
 {pstd}
 {cmd: att_gt} computes average treatment effects in DID setups where there are more than two periods of data and allowing for treatment to occur at different points in time and allowing for treatment effect heterogeneity and dynamics. See Callaway and Sant'Anna (2020) for a detailed description.
 
+{pstd}
 Note that {it: all variable names must be legitimate variable names in R as well}. This isn't generally a problem though.
 
 {marker author}{...}
@@ -67,6 +68,7 @@ nhuntington-klein@seattleu.edu
 {marker examples}{...}
 {title:Examples}
 
+{pstd}
 Note that this syntax example produces some strange {cmd: effectSE} results, but this is an artifact of the not-well-thought-out analysis; generally they won't all be identical.
 
 {phang}{cmd:. sysuse auto.dta, clear}{p_end}

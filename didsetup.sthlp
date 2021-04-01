@@ -10,7 +10,7 @@
 {title:didsetup}
 
 {phang}
-{bf:didsetupz} {hline 2} set up rcall and R package dependencies for did
+{bf:didsetup} {hline 2} set up rcall and R package dependencies for did
 
 
 {marker syntax}{...}
@@ -37,6 +37,7 @@
 {pstd}
 R must be installed first before running {cmd:didsetup}, and R must be callable from the command line. You can install R at {browse "https://www.r-project.org/":R-Project.org}. If after installing R, {cmd: rcall} is still having trouble finding your R installation, see the {browse "http://www.haghish.com/packages/Rcall.php":rcall website} for troubleshooting tips. Likely, your R installation is just not where it expects.
 
+{pstd}
 Note that running didsetup, or any other function in the did package, will often produce lots of bright windows that pop up and disappear. If you are sensitive to flashing lights you may want to look away.
 
 {pstd}
