@@ -24,12 +24,15 @@
 {synopthdr}
 {synoptline}
 {syntab:Main}
+{synopt:{opt depvar}} The dependent variable.{p_end}
 {synopt:{opt tvar}} The name of the column containing the time periods.{p_end}
 {synopt:{opt gvar}} The name of the variable in data that contains the first period when a particular observation is treated. This should be a positive number for all observations in treated groups. It defines which "group" a unit belongs to. It should be 0 for units in the untreated group.{p_end}
+{synopt:{opt varlist}} Variables to be included as controls.{p_end}
 {synopt:{opt clearR}} Start a new R environment before running {cmd: did::att_gt}.{p_end}
 {synopt:{opt replace}} Replace the data in memory with the primary results table, rather than returning it only as a matrix.{p_end}
 {synopt:{opt no_panel}} By default, estimation assumes the data is a panel, which should be provided in long format – that is, where each row corresponds to a unit observed at a particular point in time. When using a panel dataset, the {opt idname} must be set. With {opt no_panel}, the data is treated as repeated cross sections.{p_end}
 {synopt:{opt idname(varname)}} The individual (cross-sectional unit) id name.{p_end}
+{synopt:{opt xformla(string)}} By default, all control variables in {opt: varlist} will be included linearly. If you want to include interactions, polynomials, transformations, and so on, specify a formula here as a string {it: in R syntax}, beginning with a "~". So to include A, B, B squared, A*B, the log of C, and D, we could do xformla("~A*B+I(B^2)+log(C)+D"). These variables must all be listed as normal in {opt: varlist}. See {browse "https://www.youtube.com/watch?v=ZKWQR62Ph-c": this video} for a more thorough walkthrough on R regression formula syntax.{p_end}
 {synopt:{opt allow_unbalanced_panel}} Whether or not function should "balance" the panel with respect to time and id. Without this option, att_gt will drop all units where data is not observed in all periods. The advantage of this is that the computations are faster (sometimes substantially).{p_end}
 {synopt:{opt control_group(string)}} Which units to use the control group. The default is "nevertreated" which sets the control group to be the group of units that never participate in the treatment. This group does not change across groups or time periods. The other option is to set control_group("notyettreated"). In this case, the control group is set to the group of units that have not yet participated in the treatment in that time period. This includes all never treated units, but it includes additional units that eventually participate in the treatment, but have not participated yet.{p_end}
 {synopt:{opt anticipation(integer)}} The number of time periods before participating in the treatment where units can anticipate participating in the treatment and therefore it can affect their untreated potential outcomes. By default 0.{p_end}
@@ -53,6 +56,9 @@
 
 {pstd}
 Note that {it: all variable names must be legitimate variable names in R as well}. This isn't generally a problem though.
+
+{pstd}
+A full set of results is returned in {cmd: ereturn list} and so results should be compatible with at least some Stata postestimation tools.
 
 {marker author}{...}
 {title:Author}
