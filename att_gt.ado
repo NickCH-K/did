@@ -17,8 +17,8 @@ prog def att_gt, rclass
 	 error 198
 	}
 	
-	* did requires version 3.5+
-	rcall_check, rversion(3.50)
+	* did requires version 4.0+
+	rcall_check, rversion(4.0)
 	
 	capture rcall: library(did)
 	if _rc != 0{
@@ -157,7 +157,7 @@ prog def att_gt, rclass
 					CS_Model[['att']] + CS_Model[['c']]*CS_Model[['se']]); ///
 			colnames(table) <- c('Group','Time','ATTgt','SE', cibot, citop); /// 
 			rm(cibot, citop, cband_type); ///
-			print(summary(CS_Model)) ///
+			print(summary(CS_Model))
 		}
 	
 	* turn to wrapped inside ereturn version:

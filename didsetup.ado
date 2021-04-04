@@ -3,6 +3,8 @@ prog def didsetup
 
 	syntax [anything], [go]
 
+	local worked = 1
+	
 	if "`go'" == "" {
 	
 		display "This function will set up the proper packages (github and rcall in Stata) necessary to use R in Stata."
@@ -47,6 +49,12 @@ prog def didsetup
 		net install github, from("https://haghish.github.io/github/") replace
 		github install haghish/rcall, stable
 		
+		capture rcall_check, rversion(4.0)
+		if _rc > 0 {
+			display as error "did requires R version 4.0 or higher. Install the newest version of R from R-project.org."
+			exit 198
+		}
+		
 		display as error "rcall has been installed. rcall will now be used to install R packages."
 		local url3 = `""http://www.haghish.com/packages/Rcall.php""'
 		display as text "If errors occur, please see {browse " `"`url3'"' ":the rcall website} for"
@@ -73,13 +81,20 @@ prog def didsetup
 		}
 	
 		* Use install.packages because install_github can get strange with dependencies
+		
 		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics" {
 			display "Installing the R package `pkg'"
 			rcall: if(!("`pkg'" %in% rownames(installed.packages()))) {install.packages('`pkg'', repos = '`repo'', dependencies = TRUE)}
+			
+			capture rcall: library(`pkg')
+			if _rc > 0 {
+				display as error "Package `pkg' failed to install. Try rcall: install.packages('`pkg'') to try again, and maybe get a more detailed error message as to why it didn't work."
+			}
 		}
 	}
-	
-	display "You're good to go! Everything is installed."
-	display "You may want to rerun didsetup regularly to get updated versions of packages."
+	if `worked' == 1 {
+		display "You're good to go! Everything is installed."
+		display "You may want to rerun didsetup regularly to get updated versions of packages."
+	}
 	
 end

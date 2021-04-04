@@ -1,0 +1,5 @@
+//SCALAR rc
+1
+//STRING error
+Error in library(foom) : there is no package called 'foom'
+
