@@ -157,7 +157,7 @@ prog def att_gt, rclass
 					CS_Model[['att']] + CS_Model[['c']]*CS_Model[['se']]); ///
 			colnames(table) <- c('Group','Time','ATTgt','SE', cibot, citop); /// 
 			rm(cibot, citop, cband_type); ///
-			print(summary(CS_Model))
+			print(summary(CS_Model)) ///
 		}
 	
 	* turn to wrapped inside ereturn version:
