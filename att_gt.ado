@@ -1,6 +1,12 @@
-cap prog drop att_gt
+*! att_gt v.1.2.3 Run att_gt in R's did package. 05apr2021 by Nick CH-K
 prog def att_gt, rclass
-	syntax varlist(min=3) [if] [in] [iweight], [clearR] [replace] [no_panel] [idname(varname)] [xformla(string)] [allow_unbalanced_panel] [control_group(string)] [anticipation(integer 0)] [alp(real 0.05)] [no_bootstrap] [no_cband] [biters(integer 1000)] [clustervars(varlist max=2)] [est_method(string)] [pl] [cores(integer 1)]
+
+	version 14
+
+	syntax varlist(min=3) [if] [in] [iweight], ///
+		[clearR replace no_panel idname(varname) xformla(string) allow_unbalanced_panel control_group(varlist) ///
+		anticipation(integer 0) ALPha(real 0.05) no_bootstrap no_cband biters(integer 1000) ///
+		CLUStervars(varlist max=2) est_method(string) pl cores(integer 1)]
 	marksample touse
 	
 	quietly{
