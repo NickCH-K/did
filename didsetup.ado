@@ -62,8 +62,13 @@ prog def didsetup
 		display as text "If errors occur, please see {browse " `"`url3'"' ":the rcall website} for"
 		display "troubleshooting - rcall may not be able to find your R installation."
 		
-		foreach pkg in "did" "rmarkdown" "plm" "here" {
+		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics"  {
 			rcall: if(!("`pkg'" %in% rownames(installed.packages()))) {install.packages('`pkg'', repos = '`repo'', dependencies = TRUE)} else { update.packages('`pkg'', repos = '`repo'', dependencies = TRUE)}
+			
+			capture rcall: library(`pkg')
+			if _rc > 0 {
+				display as error "Package `pkg' failed to install. Try rcall: install.packages('`pkg'') to try again, and maybe get a more detailed error message as to why it didn't work."
+			}
 		}
 	}
 	else {
