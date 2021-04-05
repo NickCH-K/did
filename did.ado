@@ -1,4 +1,4 @@
-*! did v.1.2.3 did package information screen. 05apr2021 by Nick CH-K
+*! did v.0.1.0 did package information screen. 05apr2021 by Nick CH-K
 
 prog def did
 	version 14
