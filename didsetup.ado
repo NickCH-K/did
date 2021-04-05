@@ -1,5 +1,7 @@
-cap prog drop didsetup
+*! didsetup v.0.1.0 install rcall, github and R packages for did. 05apr2021 by Nick CH-K
 prog def didsetup
+
+	version 14
 
 	syntax [anything], [go]
 
@@ -7,7 +9,7 @@ prog def didsetup
 	
 	if "`go'" == "" {
 	
-		display "This function will set up the proper packages (github and rcall in Stata) necessary to use R in Stata."
+		display "{txt}This function will set up the proper packages ({res}github{txt} and{res} rcall{txt} in Stata) necessary to use R in Stata."
 		display "These are both installed from GitHub and are not maintained by StataCorp or me."
 		local url1 = `""https://journals.sagepub.com/doi/10.1177/1536867X19830891""'
 		display "For more information on github and rcall, see {browse " `"`url1'"' ":the Stata Journal publication by Haghish}."
@@ -60,8 +62,13 @@ prog def didsetup
 		display as text "If errors occur, please see {browse " `"`url3'"' ":the rcall website} for"
 		display "troubleshooting - rcall may not be able to find your R installation."
 		
-		foreach pkg in "did" "rmarkdown" "plm" "here" {
+		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics"  {
 			rcall: if(!("`pkg'" %in% rownames(installed.packages()))) {install.packages('`pkg'', repos = '`repo'', dependencies = TRUE)} else { update.packages('`pkg'', repos = '`repo'', dependencies = TRUE)}
+			
+			capture rcall: library(`pkg')
+			if _rc > 0 {
+				display as error "Package `pkg' failed to install. Try rcall: install.packages('`pkg'') to try again, and maybe get a more detailed error message as to why it didn't work."
+			}
 		}
 	}
 	else {
