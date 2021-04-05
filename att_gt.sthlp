@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.2.3  05apr2021}{...}
+{* *! version 0.1.0  05apr2021}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
 {vieweralsosee "did" "help did"}{...}
 {vieweralsosee "" "--"}{...}
@@ -67,7 +67,7 @@
 			This option does nothing if you have also included {opt no_bootstrap}{p_end}
 {synopt:{opt biters(integer)}} The number of bootstrap iterations. 1000 by default. 
 			Does nothing if {opt no_bootstrap} is specified.{p_end}
-{synopt:{opt clustvars(varlist)}} A list of one or more variables to cluster on. At most, there can be 
+{synopt:{opt clustervars(varlist)}} A list of one or more variables to cluster on. At most, there can be 
 			two variables (otherwise will throw an error) and one of these must be the same as 
 			{cmd:idname} which allows for clustering at the individual level.{p_end}
 {synopt:{opt est_method(string)}} The method to compute group-time average treatment effects. 
