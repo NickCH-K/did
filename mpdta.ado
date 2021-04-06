@@ -6,17 +6,7 @@ prog def mpdta
 	syntax, [clear]
 	
 	quietly{
-	
-		if "`clear'" == "clear" {
-			clear
-		}
-		
-		if _N > 0 | c(k) > 0 {
-			display as error "Tried to load new data with old data already in there, without the clear option."
-			exit 4
-		}
-		set obs 2500
-		
+			
 		rcall: data(mpdta, package = 'did'); write.csv(mpdta, 'temp_mpdta_transfer.csv')
 		
 		import delimited temp_mpdta_transfer.csv, `clear'

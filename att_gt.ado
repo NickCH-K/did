@@ -176,14 +176,3 @@ prog def att_gt, rclass
 	
 	}
 end
-
-/*
-out1 <- att_gt(yname="lemp",
-               tname="year",
-               idname="countyreal",
-               gname="first.treat",
-               xformla=~lpop,
-               data=mpdta)
-summary(out1)
-att_gt lemp year firsttreat lpop, idname(countyreal)
-*/

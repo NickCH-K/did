@@ -62,7 +62,15 @@ or maybe just try it again before moving on to the next:
 {phang2}{cmd:install.packages("rmarkdown", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
 {phang2}{cmd:install.packages("plm", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
 {phang2}{cmd:install.packages("here", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
- 
+{phang2}{cmd:install.packages("knitr", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("BMisc", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("Matrix", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("pbapply", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("ggplot2", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("ggpubr", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("DRDID", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("generics", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
+{phang2}{cmd:install.packages("broom", repos = "https://cloud.r-project.org", dependencies = TRUE)}{p_end}
  
 {marker author}{...}
 {title:Author}

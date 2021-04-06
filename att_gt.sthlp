@@ -117,14 +117,7 @@ nhuntington-klein@seattleu.edu
 {title:Examples}
 
 {pstd}
-Note that this syntax example produces some strange {cmd:effectSE} results, 
-but this is an artifact of the not-well-thought-out analysis; generally they won't all be identical.
-
-{phang}{cmd:. sysuse auto.dta, clear}{p_end}
-{phang}{inp}. causal_forest price foreign mpg rep78 headroom trunk weight length turn, 
-		clearR replace seed(1002) pred(effect) opts(num.trees=50) 
-		varreturn(effectSE = sqrt(predict(CF, X, estimate.variance = TRUE)@@variance.estimates)) 
-		return(ate = average_treatment_effect(CF)[1]; ateSE = average_treatment_effect(CF)[2]){txt}{p_end}
-{phang}{cmd:. di r(ate)}{p_end}
-{phang}{cmd:. di r(ateSE)}{p_end}
+{phang}{cmd:. mpdta, clear}{p_end}
+{phang}{inp}. att_gt lemp year firsttreat lpop, idname(countyreal){txt}{p_end}
+{phang}{cmd:. matrix list r(table)}{p_end}
 

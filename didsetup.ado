@@ -58,11 +58,14 @@ prog def didsetup
 		}
 		
 		display as error "rcall has been installed. rcall will now be used to install R packages."
-		local url3 = `""http://www.haghish.com/packages/Rcall.php""'
-		display as text "If errors occur, please see {browse " `"`url3'"' ":the rcall website} for"
-		display "troubleshooting - rcall may not be able to find your R installation."
+		display as text "If errors occur, please see {help rcall} or the rcall website for troubleshooting:"
+		display as text "http://www.haghish.com/packages/Rcall.php"
+		display as text "Errors may arise if rcall cannot find your R installation,"
+		display as text "or if you do not have write permission to your R folder."
+		display as text "Or you may want to check {help didsetup} for instructions on manual package installation."
+		display as text "(the last option may be a good idea if installation seems to hang for a long time)"
 		
-		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics"  {
+		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics" "broom" {
 			rcall: if(!("`pkg'" %in% rownames(installed.packages()))) {install.packages('`pkg'', repos = '`repo'', dependencies = TRUE)} else { update.packages('`pkg'', repos = '`repo'', dependencies = TRUE)}
 			
 			capture rcall: library(`pkg')
@@ -83,13 +86,17 @@ prog def didsetup
 		if _rc > 0 {
 			github install haghish/rcall, stable
 			display as error "rcall has been installed. rcall will now be used to install R packages."
-			display as text "If errors occur, please see the rcall website for troubleshooting - rcall may not be able to find your R installation."
+			display "If errors occur, please see {help rcall} or the rcall website for troubleshooting:"
 			display as text "http://www.haghish.com/packages/Rcall.php"
+			display as text "Errors may arise if rcall cannot find your R installation,"
+			display as text "or if you do not have write permission to your R folder."
+			display as text "Or you may want to check {help didsetup} for instructions on manual package installation."
+			display as text "(the last option may be a good idea if installation seems to hang for a long time)"
 		}
 	
 		* Use install.packages because install_github can get strange with dependencies
 		
-		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics" {
+		foreach pkg in "did" "rmarkdown" "plm" "here" "knitr" "BMisc" "Matrix" "pbapply" "ggplot2" "ggpubr" "DRDID" "generics" "broom" {
 			display "Installing the R package `pkg'"
 			rcall: if(!("`pkg'" %in% rownames(installed.packages()))) {install.packages('`pkg'', repos = '`repo'', dependencies = TRUE)}
 			
