@@ -9,18 +9,21 @@ prog def didsetup
 	
 	if "`go'" == "" {
 	
-		display "{txt}This function will set up the proper packages ({res}github{txt} and{res} rcall{txt} in Stata) necessary to use R in Stata."
-		display "These are both installed from GitHub and are not maintained by StataCorp or me."
+		display as text "{txt}This function will set up the proper packages ({res}github{txt} and{res} rcall{txt} in Stata)
+		display as text "necessary to use R in Stata."
+		display as text "These are both installed from GitHub and are not maintained by StataCorp or me."
 		local url1 = `""https://journals.sagepub.com/doi/10.1177/1536867X19830891""'
-		display "For more information on github and rcall, see {browse " `"`url1'"' ":the Stata Journal publication by Haghish}."
-		display ""
-		display "This will also install all of the R packages that did can use."
-		display ""
-		display "Finally, this setup requires that R is ALREADY installed on your machine."
+		display as text "For more information on github and rcall, see {browse " `"`url1'"' ":the Stata Journal publication by Haghish}."
+		display as text ""
+		display as text "This will also install all of the R packages that did can use."
+		display as text ""
+		display as text "Finally, this setup requires that R is ALREADY installed on your machine."
 		local urlR = `""https://www.r-project.org/""'
-		display "R can be installed at {browse " `"`urlR'"' ":R-Project.org}. Do that first if it's not already installed."
-		display as error "You will likely see a lot of flashing windows as R calls open and close, both when this function and other did functions run. That is expected. If you are sensitive to flashing lights you may want to look away."
-		display "Do you want to continue? Type Y or Yes to continue, and anything else to quit."
+		display as text "R can be installed at {browse " `"`urlR'"' ":R-Project.org}. Do that first if it's not already installed."
+		display as error "You will likely see a lot of flashing windows as R calls open and close, "
+		display as error "both when this function and other did functions run. That is expected."
+		display as error "If you are sensitive to flashing lights you may want to look away."
+		display as text "Do you want to continue? Type Y or Yes to continue, and anything else to quit."
 		display _request(start)
 		
 		local st = lower("$start")
@@ -30,8 +33,8 @@ prog def didsetup
 			exit
 		}
 		
-		display "Should setup check for updated versions of packages?"
-		display "Type Y or yes to check for updates, and anything else to only install packages if they are completely missing."
+		display as text "Should setup check for updated versions of packages?"
+		display as text "Type Y or yes to check for updates, and anything else to only install packages if they are completely missing."
 		display _request(upd)
 		
 		local st = lower("$upd")
@@ -107,8 +110,10 @@ prog def didsetup
 		}
 	}
 	if `worked' == 1 {
-		display "You're good to go! Everything is installed."
-		display "You may want to rerun didsetup regularly to get updated versions of packages."
+		display as text "You're good to go! Everything is installed."
+		display as text "You may want to rerun didsetup regularly to get updated versions of packages."
+		display as text "If things start breaking that should work fine, try {cmd: rcall clear} or restarting Stata."
+		
 	}
 	
 end

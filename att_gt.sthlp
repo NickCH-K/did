@@ -8,6 +8,7 @@
 {viewerjumpto "Description" "att_gt##description"}{...}
 {viewerjumpto "Author" "att_gt##author"}{...}
 {viewerjumpto "References" "att_gt##references"}{...}
+{viewerjumpto "Examples" "att_gt##examples"}{...}
 {title:att_gt}
 
 {phang}
@@ -31,11 +32,9 @@
 			It defines which "group" a unit belongs to. It should be 0 for units in the untreated group.{p_end}
 {synopt:{opt varlist}} Variables to be included as controls.{p_end}
 {synopt:{opt clearR}} Start a new R environment before running {cmd: did::att_gt}.{p_end}
-{synopt:{opt replace}} Replace the data in memory with the primary results table, rather than returning it 
-			only as a matrix.{p_end}
-{synopt:{opt no_panel}} By default, estimation assumes the data is a panel, which should be provided 
+{synopt:{opt panel_no}} By default, estimation assumes the data is a panel, which should be provided 
 			in long format – that is, where each row corresponds to a unit observed at a particular point in time. 
-			When using a panel dataset, the {opt idname} must be set. With {opt no_panel}, the data is treated 
+			When using a panel dataset, the {opt idname} must be set. With {opt panel_no}, the data is treated 
 			as repeated cross sections.{p_end}
 {synopt:{opt idname(varname)}} The individual (cross-sectional unit) id name.{p_end}
 {synopt:{opt xformla(string)}} By default, all control variables in {opt: varlist} will be included linearly. 
@@ -60,13 +59,13 @@
 			where units can anticipate participating in the treatment and therefore it can affect 
 			their untreated potential outcomes. By default 0.{p_end}
 {synopt:{opt alp(real)}} The significance level, default .05.{p_end}
-{synopt:{opt no_bootstrap}} Compute standard errors analytically rather than with multiplier bootstrap. 
-			If standard errors are clustered, then do not use this option.{p_end}
-{synopt:{opt no_cband}} Do not compute a uniform confidence band that covers all of 
+{synopt:{opt bootstrap_no}} Compute standard errors analytically rather than with multiplier bootstrap. 
+			Note the analytic standard errors only allow clustering at the {opt idname} level.{p_end}
+{synopt:{opt cband_no}} Do not compute a uniform confidence band that covers all of 
 			the group-time average treatment effects with fixed probability 1-{opt alp}. 
-			This option does nothing if you have also included {opt no_bootstrap}{p_end}
+			This option does nothing if you have also included {opt bootstrap_no}{p_end}
 {synopt:{opt biters(integer)}} The number of bootstrap iterations. 1000 by default. 
-			Does nothing if {opt no_bootstrap} is specified.{p_end}
+			Does nothing if {opt bootstrap_no} is specified.{p_end}
 {synopt:{opt clustervars(varlist)}} A list of one or more variables to cluster on. At most, there can be 
 			two variables (otherwise will throw an error) and one of these must be the same as 
 			{cmd:idname} which allows for clustering at the individual level.{p_end}
@@ -98,8 +97,15 @@ Note that {it: all variable names must be legitimate variable names in R as well
 This isn't generally a problem though.
 
 {pstd}
-A full set of results is returned in {cmd: ereturn list} 
+A full set of results is returned in {cmd: ereturn list} and you can extract any part of the results table from {cmd: r(table)}.
 and so results should be compatible with at least some Stata postestimation tools.
+
+{pstd}
+Although some caution is warranted before you go doing all sorts of postestimation {it: testing}. 
+Default standard errors are from the multiplier bootstrap. This provides only the diagonal. So if you
+want to do a joint hypothesis test, you'll want analytical standard errors with {opt bootstrap_no}.
+Also, see the paper to figure out the appropriate null distribution. The relevant critical value
+(simultaneous by default) is in {cmd: r(critical_value)}.
 
 {marker author}{...}
 {title:Author}
@@ -111,13 +117,12 @@ nhuntington-klein@seattleu.edu
 {title:References}
 
 {phang} Callaway, B., and P. H. C. Sant'Anna (2020). Difference-in-Differences with Multiple Time Periods. 
-{it:Journal of Econometrics}. {browse "https://doi.org/10.1016/j.jeconom.2020.12.001":Link}.
+{it:Journal of Econometrics}. {browse "https://doi.org/10.1016/j.jeconom.2020.12.001":Link}.{p_end}
 
 {marker examples}{...}
 {title:Examples}
 
-{pstd}
 {phang}{cmd:. mpdta, clear}{p_end}
-{phang}{inp}. att_gt lemp year firsttreat lpop, idname(countyreal){txt}{p_end}
+{phang}{cmd:. att_gt lemp year firsttreat lpop, idname(countyreal)}{p_end}
 {phang}{cmd:. matrix list r(table)}{p_end}
 
