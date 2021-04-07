@@ -31,7 +31,8 @@
 {synopt:{opt gvar}} The name of the variable in data that contains the first period when a particular observation 
 			is treated. This should be a positive number for all observations in treated groups. 
 			It defines which "group" a unit belongs to. It should be 0 for units in the untreated group.{p_end}
-{synopt:{opt varlist}} Variables to be included as controls.{p_end}
+{synopt:{opt varlist}} Variables to be included as controls. Be very careful with value labels and factor variables; 
+			see the Description below.{p_end}
 {synopt:{opt clearR}} Start a new R environment before running {cmd: did::att_gt}.{p_end}
 {synopt:{opt panel_no}} By default, estimation assumes the data is a panel, which should be provided 
 			in long format – that is, where each row corresponds to a unit observed at a particular point in time. 
@@ -98,10 +99,14 @@ Note that {it: all variable names must be legitimate variable names in R as well
 This isn't generally a problem though.
 
 {pstd}
-Value labels will be ignored for all variables. Be careful with factor variables! 
-Currently, all numeric variables, {it including variables with labeled values} will
-be treated as numeric. If you want an numeric control variable X included
-as a factor, use {opt xformla}, and include that variable using "factor(X)". Or just use {cmd: decode} on it before 
+Be careful with factor variables! Value labels will be ignored for all variables except those in 
+{opt varlist} (i.e. the control variables). Variables with value labels in {opt varlist} will be
+treated as factors. Unlabeled values will be included as a category based on their actual value.
+So be cautious not to include a continuous variable that has a value label attached (check with {cmd: describe},
+and use {cmd: label values X} to drop value labels from the variable X),
+or a continuous variable that has a value label for only a few special values.
+If you want an numeric control variable X included as a factor, use {opt xformla}, 
+and include that variable using "factor(X)". Or just use {cmd: decode} on it before 
 running {cmd: att_gt} and include that version instead. 
 
 {pstd}

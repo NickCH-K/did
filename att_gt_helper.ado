@@ -1,5 +1,4 @@
 *! att_gt v.0.1.0 Run att_gt in R's did package. 05apr2021 by Nick CH-K
-cap prog drop att_gt_helper
 prog def att_gt_helper, rclass
 
 	version 14
@@ -16,6 +15,11 @@ prog def att_gt_helper, rclass
 	if "`clearR'" == "clearR" {
 		rcall, clear
 	}	
+	
+	* Make sure to get rid of old results lest we error here and refer back to them!
+	rcall: suppressWarnings(try(rm(CS_Model)))
+	return clear
+	
 	local boot_TF = "TRUE"
 	if "`bootstrap_no'" == "bootstrap_no" {
 		local boot_TF = "FALSE"
@@ -64,11 +68,11 @@ prog def att_gt_helper, rclass
 	local gname = trim(word("`varlist'",1))
 	local varlist = trim(stritrim(subinstr("`varlist'","`gname'","",1)))
 	* And construct control formula
-	if "`xformla'" == "" {
+	if length("`xformla'") == 0 {
 		local xformla = "NULL"
 		if length("`varlist'") > 0 {
 			local xformla = subinstr("`varlist'"," ","+",.)
-			local xformla = "~`varlist'"
+			local xformla = "~`xformla'"
 		}
 	}
 	local clusters = "NULL"
@@ -98,10 +102,37 @@ prog def att_gt_helper, rclass
 		}
 	}
 	* Deal with labels and variable conversion
-	foreach var in `yname' `tname' `gname' `clustervars' `idname' `weight' `varname' {
+	foreach var in `yname' `tname' `gname' `clustervars' `idname' `weight' {
 		label values `var'
 	}
 	* Labeled controls 
+	foreach var in  `varlist' {
+		local has_label = ("`: value label `var''" != "")
+		if `has_label' == 1 {
+			tempvar temp1
+			tempvar temp2
+			decode `var', g(`temp1')
+			tostring `var', g(`temp2')
+			replace `temp1' = `temp2' if missing(`temp1')
+			drop `var'
+			rename `temp1' `var'
+			
+			* Check if there was a problem
+			levelsof `var', l(lvls)
+			local nlevs = 0
+			foreach l in `lvls' {
+				local nlevs = `nlevs' + 1
+			}
+			if `nlevs' == 1 {
+				display as error "Variable `var' only has one value. There is probably something wrong with its value label."
+				exit
+			}
+			if `nlevs' > 100 {
+				display as error "Variable `var' has more than 100 values. Is it perhaps a continuous variable with a value label?"
+				exit 134
+			}
+		}
+	}
 	
 	
 	* More variable names
