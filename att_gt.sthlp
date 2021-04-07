@@ -26,7 +26,8 @@
 {synoptline}
 {syntab:Main}
 {synopt:{opt depvar}} The dependent variable.{p_end}
-{synopt:{opt tvar}} The name of the column containing the time periods.{p_end}
+{synopt:{opt tvar}} The name of the column containing the time periods. 
+			This should be a numeric variable and not a formatted date.{p_end}
 {synopt:{opt gvar}} The name of the variable in data that contains the first period when a particular observation 
 			is treated. This should be a positive number for all observations in treated groups. 
 			It defines which "group" a unit belongs to. It should be 0 for units in the untreated group.{p_end}
@@ -95,6 +96,13 @@ and dynamics. See Callaway and Sant'Anna (2020) for a detailed description.
 {pstd}
 Note that {it: all variable names must be legitimate variable names in R as well}. 
 This isn't generally a problem though.
+
+{pstd}
+Value labels will be ignored for all variables. Be careful with factor variables! 
+Currently, all numeric variables, {it including variables with labeled values} will
+be treated as numeric. If you want an numeric control variable X included
+as a factor, use {opt xformla}, and include that variable using "factor(X)". Or just use {cmd: decode} on it before 
+running {cmd: att_gt} and include that version instead. 
 
 {pstd}
 A full set of results is returned in {cmd: ereturn list} and you can extract any part of the results table from {cmd: r(table)}.

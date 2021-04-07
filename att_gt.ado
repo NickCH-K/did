@@ -17,9 +17,6 @@ prog def att_gt, eclass
 	keep if `touse'
 	keep `varlist' `idname' `clustervars' `weight'
 	
-	* For ereturn later
-	local N = _N
-	
 	* This check nicked from Jonathan Roth's staggered package
 	capture findfile rcall.ado
 	if _rc != 0 {
@@ -35,6 +32,9 @@ prog def att_gt, eclass
 		display as error "Package (did) is missing. Run didsetup."
 		exit
 	} 
+	
+	* For ereturn later
+	local N = _N
 	
 	* Call the helper
 	att_gt_helper `varlist' `if' `in' [`iweight'], ///

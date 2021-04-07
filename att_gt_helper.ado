@@ -97,6 +97,14 @@ prog def att_gt_helper, rclass
 			}
 		}
 	}
+	* Deal with labels and variable conversion
+	foreach var in `yname' `tname' `gname' `clustervars' `idname' `weight' `varname' {
+		label values `var'
+	}
+	* Labeled controls 
+	
+	
+	* More variable names
 	local idname = "'`idname''"
 	if "`idname'" == "''" {
 		if "`panel_no'" == "" {
