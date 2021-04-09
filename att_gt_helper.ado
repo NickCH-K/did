@@ -151,8 +151,13 @@ prog def att_gt_helper, rclass
 	
 	* Run interactively so other functions can use
 	* the model output
+	* "dotter" turns R NA's into Stata NA's
 	noisily rcall: library(did); ///
 		d <- data.frame(st.data()); ///
+		dotter <- function(M) {; ///
+			if (sum(is.na(M)) > 0) M[is.na(M)] <- '.'; ///
+			return(M) ; ///
+		}; ///
 		err <- try(CS_Model <- att_gt(yname = '`yname'', ///
 							tname = '`tname'', ///
 							idname = `idname', ///
@@ -180,12 +185,12 @@ prog def att_gt_helper, rclass
                          "Pointwise"); ///
 			cibot <- paste0(cband_type,'CI',100*(1-CS_Model[['alp']]),'_Bot'); ///
 			citop <- paste0(cband_type,'CI',100*(1-CS_Model[['alp']]),'_Top'); ///
-  			table <- cbind(CS_Model[['group']], CS_Model[['t']], CS_Model[['att']], CS_Model[['se']], ///
+  			table <- dotter(cbind(CS_Model[['group']], CS_Model[['t']], CS_Model[['att']], CS_Model[['se']], ///
 					CS_Model[['att']] - CS_Model[['c']]*CS_Model[['se']], ///
-					CS_Model[['att']] + CS_Model[['c']]*CS_Model[['se']]); ///
+					CS_Model[['att']] + CS_Model[['c']]*CS_Model[['se']])); ///
 			colnames(table) <- c('Group','Time','ATTgt','SE', cibot, citop); /// 
-			vcv_analytical <- as.matrix(CS_Model[['V_analytical']]); ///
-			critical_value <- as.matrix(CS_Model[['c']]); ///
+			vcv_analytical <- dotter(as.matrix(CS_Model[['V_analytical']])); ///
+			critical_value <- CS_Model[['c']]; ///
 			rm(cibot, citop, cband_type) ///
 		}
 	
