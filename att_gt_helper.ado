@@ -1,4 +1,4 @@
-*! att_gt v.0.1.0 Run att_gt in R's did package. 05apr2021 by Nick CH-K
+*! att_gt_helper v.0.1.0 Run att_gt in R's did package. 05apr2021 by Nick CH-K
 prog def att_gt_helper, rclass
 
 	version 14
@@ -37,19 +37,19 @@ prog def att_gt_helper, rclass
 		}
 	}
 	if "`pl_TF'" == "TRUE" | `cores' != 1 {
-		display as error "pl and cores options are not currently functional and will be ignored."
+		display as error "{opt pl} and {opt cores} options are not currently functional and will be ignored."
 	}
 	
 	* Defaults
 	if !inlist("`control_group'","","nevertreated","notyettreated") {
-		display as error "If control_group is specified it must be nevertreated or notyettreated."
+		display as error "If {opt control_group} is specified it must be nevertreated or notyettreated."
 		exit 198
 	}
 	if "`control_group'" == "" {
 		local control_group = "nevertreated"
 	}
 	if !inlist("`est_method'", "", "dr", "ipw", "reg") {
-		display as error "If est_method is specified it must be dr, ipw, or reg."
+		display as error "If {opt est_method} is specified it must be dr, ipw, or reg."
 		if "`est_method'" != "" {
 			display as error "Custom estimation functions are not supported in this port."
 			display as error "If you can write one of those you can just use R."

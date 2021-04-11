@@ -70,7 +70,7 @@
 			Does nothing if {opt bootstrap_no} is specified.{p_end}
 {synopt:{opt clustervars(varlist)}} A list of one or more variables to cluster on. At most, there can be 
 			two variables (otherwise will throw an error) and one of these must be the same as 
-			{cmd:idname} which allows for clustering at the individual level.{p_end}
+			{opt idname} which allows for clustering at the individual level.{p_end}
 {synopt:{opt est_method(string)}} The method to compute group-time average treatment effects. 
 			The default is "dr" which uses the doubly robust approach in 
 			the {browse "https://cran.r-project.org/web/packages/DRDID/index.html": DRDID R package}. 
@@ -119,6 +119,16 @@ Default standard errors are from the multiplier bootstrap. This provides only th
 want to do a joint hypothesis test, you'll want analytical standard errors with {opt bootstrap_no}.
 Also, see the paper to figure out the appropriate null distribution. The relevant critical value
 (simultaneous by default) is in {cmd: r(critical_value)}.
+
+{pstd}
+After {cmd: att_gt} completes, the estimated R model object can be accessed through {cmd: rcall}. It is named CS_Model
+(Callaway and Sant'Anna Model), and is an MP object as created by the R {cmd:did} package. See the 
+{browse "https://cran.r-project.org/web/packages/did/did.pdf": documentation for the MP function} to see
+what else you might be able to extract from the object. For example, if you wanted the influence function from estimation,
+you could get it with {cmd: rcall: CS_Model[['inffunc']]} (note that {cmd: rcall: CS_Model$inffunc} would be ill-advised;
+despite being valid R code, the $ confuses Stata since that's the marker for globals.). Or perhaps
+{cmd: rcall: write.csv(CS_Model[['inffunc']], 'inffunc.csv') } to save it to CSV. See the {cmd: rcall} documentation
+for more information on passing things directly back to Stata. 
 
 {marker author}{...}
 {title:Author}

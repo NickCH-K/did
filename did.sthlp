@@ -36,6 +36,16 @@ Because it is only a wrapper for an existing R package, you will need
 to {browse "https://www.r-project.org/": have R installed} and accessible by command line before using it.
 
 {pstd}
+Note that {cmd: rcall} is in beta and can sometimes be temperamental. Two troubleshooting tips to point out:
+(1) If it looks like your code is running fine but the results aren't showing up in Stata, it may be that 
+your results are too big. {cmd: rcall} will sometimes refuse to return big matrices to Stata. If this happens,
+use {cmd: rcall: write.csv(object, 'filename.csv')} to write the big matrix (filling in "object" with whatever the 
+matrix's name is) to write the results to file so you can load them some other way.
+(2) Sometimes errors in {cmd: rcall} can be "sticky." That is, once you get an error in your session, {cmd: rcall}
+may continue reporting that error with subsequent uses, even if those subsequent uses are error-free. If this happens,
+you can try {cmd: rcall, clear} to restart the R session. If that still doesn't work, you'll need to restart Stata.
+
+{pstd}
 Once you have R installed, you can get set up with the appropriate R packages, 
 and the Stata packages for calling R, by running the {cmd:didsetup} command.
 
@@ -47,7 +57,7 @@ Then, the command names are the same as those listed in the
 Some of the primary commands you will want to examine will be 
 {help att_gt}, which calculates group-time average treatment on the treated, 
 {help aggte}, which calculates treatment effects from that model, 
-or {help mpdta}, which provides an example data set.
+and {help mpdta}, which provides an example data set.
 
 {pstd}
 Other commands in the package are {cmd: conditional_did_pretest} (for prior trends tests), 

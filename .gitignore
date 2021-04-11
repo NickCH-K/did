@@ -5,3 +5,4 @@
 rcall
 rcall-2.5.0/
 .Rprofile
+.gitignore
