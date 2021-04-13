@@ -1,5 +1,4 @@
 *! aggte_helper v.0.1.0 F in R's did package. 05apr2021 by Nick CH-K
-cap prog drop aggte_helper
 prog def aggte_helper, rclass
 
 	version 14

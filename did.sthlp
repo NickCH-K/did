@@ -2,6 +2,9 @@
 {* *! version 0.1.0  05apr2021}{...}
 {vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
+{vieweralsosee "ggdid" "help aggte"}{...}
+{vieweralsosee "didsetup" "help didsetup"}{...}
+{vieweralsosee "mpdta" "help mpdta"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
 {viewerjumpto "Syntax" "did##syntax"}{...}
@@ -86,7 +89,7 @@ nhuntington-klein@seattleu.edu
 {pstd}In this Stata package: {help att_gt}, {help aggte}, {help mpdta}.
 In the {browse "https://cran.r-project.org/web/packages/did/did.pdf":original R package}, 
 see also {cmd:conditional_did_pretest} (for prior trends tests), 
-and the plotting functions {cmd:ggdid}, {cmd:ggdidAGGTEobj}, and {cmd:ggdidMP}.
+and the plotting function {cmd:ggdid}.
 
 {pstd}Interface with R: {help rcall}.
 

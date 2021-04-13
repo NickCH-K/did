@@ -25,9 +25,9 @@ prog def aggte, eclass
 	
 	* Check if agg_gt object can be found
 	* If it can, we passed the other R checks so don't need them
-	rcall: if (!exists('CS_Model')) stop("agg_gt output not found in R. Run agg_gt first, and don't clear R afterwards.")
+	rcall: if (!exists('CS_Model')) stop("att_gt output not found in R. Run att_gt first, and don't clear R afterwards.")
 	
-		quietly{
+	quietly{
 		
 	* Call the helper
 	aggte_helper, ///
@@ -35,6 +35,7 @@ prog def aggte, eclass
 		`bootstrap' `cband' `cband_no' biters(`biters') clustervars(`clustervars')
 	
 	noisily rcall: if(exists('TE')) { print(summary(TE)) } else {print('R failed to produce estimates, or rcall failed to return it to Stata.') }
+	
 	
 	* ereturn pulls straight from the table
 	matrix T = r(table)

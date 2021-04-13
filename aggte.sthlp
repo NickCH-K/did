@@ -1,7 +1,10 @@
 {smcl}
 {* *! version 0.1.0  05apr2021}{...}
-{vieweralsosee "agg_gt" "help agg_gt"}{...}
+{vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "did" "help did"}{...}
+{vieweralsosee "ggdid" "help aggte"}{...}
+{vieweralsosee "didsetup" "help didsetup"}{...}
+{vieweralsosee "mpdta" "help mpdta"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
 {viewerjumpto "Syntax" "att_gt##syntax"}{...}
@@ -12,7 +15,7 @@
 {title:att_gt}
 
 {phang}
-{bf:aggte} {hline 2} A postestimation command for {cmd: agg_gt} to combine effects into a smaller number of parameters
+{bf:aggte} {hline 2} A postestimation command for {cmd: att_gt} to combine effects into a smaller number of parameters
 
 
 {marker syntax}{...}

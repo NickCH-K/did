@@ -3,6 +3,8 @@
 {vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
 {vieweralsosee "did" "help did"}{...}
+{vieweralsosee "ggdid" "help aggte"}{...}
+{vieweralsosee "didsetup" "help didsetup"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
 {viewerjumpto "Syntax" "did##syntax"}{...}

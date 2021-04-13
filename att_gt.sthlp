@@ -2,6 +2,9 @@
 {* *! version 0.1.0  05apr2021}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
 {vieweralsosee "did" "help did"}{...}
+{vieweralsosee "ggdid" "help aggte"}{...}
+{vieweralsosee "didsetup" "help didsetup"}{...}
+{vieweralsosee "mpdta" "help mpdta"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
 {viewerjumpto "Syntax" "att_gt##syntax"}{...}
