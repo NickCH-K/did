@@ -1,4 +1,4 @@
-*! mpdta v.0.1.0 example data set for did package. 05apr2021 by Nick CH-K
+*! mpdta v.0.2.0 example data set for did package. 14apr2021 by Nick CH-K
 prog def mpdta
 	
 	* should not expect anything except possibly -clear- option

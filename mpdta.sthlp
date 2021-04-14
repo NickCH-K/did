@@ -1,16 +1,17 @@
 {smcl}
-{* *! version 0.1.0  05apr2021}{...}
+{* *! version 0.2.0  14apr2021}{...}
 {vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
 {vieweralsosee "did" "help did"}{...}
 {vieweralsosee "ggdid" "help aggte"}{...}
 {vieweralsosee "didsetup" "help didsetup"}{...}
+{vieweralsosee "conditional_did_pretest" "help conditional_did_pretest"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
-{viewerjumpto "Syntax" "did##syntax"}{...}
-{viewerjumpto "Description" "did##description"}{...}
-{viewerjumpto "Author" "did##author"}{...}
-{viewerjumpto "References" "did##references"}{...}
+{viewerjumpto "Syntax" "mpdta##syntax"}{...}
+{viewerjumpto "Description" "mpdta##description"}{...}
+{viewerjumpto "Author" "mpdta##author"}{...}
+{viewerjumpto "References" "mpdta##references"}{...}
 {title:mpdta}
 
 {phang}

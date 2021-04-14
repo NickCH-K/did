@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 0.1.0  05apr2021}{...}
+{* *! version 0.2.0  14apr2021}{...}
 {vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
 {vieweralsosee "ggdid" "help aggte"}{...}

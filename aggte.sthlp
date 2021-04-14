@@ -1,17 +1,18 @@
 {smcl}
-{* *! version 0.1.0  05apr2021}{...}
+{* *! version 0.2.0  14apr2021}{...}
 {vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "did" "help did"}{...}
 {vieweralsosee "ggdid" "help aggte"}{...}
 {vieweralsosee "didsetup" "help didsetup"}{...}
 {vieweralsosee "mpdta" "help mpdta"}{...}
+{vieweralsosee "conditional_did_pretest" "help conditional_did_pretest"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
-{viewerjumpto "Syntax" "att_gt##syntax"}{...}
-{viewerjumpto "Description" "att_gt##description"}{...}
-{viewerjumpto "Author" "att_gt##author"}{...}
-{viewerjumpto "References" "att_gt##references"}{...}
-{viewerjumpto "Examples" "att_gt##examples"}{...}
+{viewerjumpto "Syntax" "aggte##syntax"}{...}
+{viewerjumpto "Description" "aggte##description"}{...}
+{viewerjumpto "Author" "aggte##author"}{...}
+{viewerjumpto "References" "aggte##references"}{...}
+{viewerjumpto "Examples" "aggte##examples"}{...}
 {title:att_gt}
 
 {phang}
@@ -92,7 +93,7 @@ and is an AGGTEobj object as created by the R {cmd:did} package. See the
 {browse "https://cran.r-project.org/web/packages/did/did.pdf": documentation for the AGGTEobj function} to see
 what else you might be able to extract from the object. For example, if you wanted the influence function from estimation,
 you could get it with {cmd: rcall: TE[['inf.function']]} (note that {cmd: rcall: TE$inf.function} would be ill-advised;
-despite being valid R code, the $ confuses Stata since that's the marker for globals.). Or perhaps
+despite being valid R code, the $ confuses Stata since that's the marker for globals). Or perhaps
 {cmd: rcall: write.csv(TE[['inf.function']], 'inffunction.csv') } to save it to CSV. See the {cmd: rcall} documentation
 for more information on passing things directly back to Stata. 
 

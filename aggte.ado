@@ -1,4 +1,4 @@
-*! aggte v.0.1.0 Following att_gt, run aggte in R's did package. 05apr2021 by Nick CH-K
+*! aggte v.0.2.0 Following att_gt, run aggte in R's did package. 14apr2021 by Nick CH-K
 prog def aggte, eclass
 
 	version 14

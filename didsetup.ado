@@ -1,4 +1,4 @@
-*! didsetup v.0.1.0 install rcall, github and R packages for did. 05apr2021 by Nick CH-K
+*! didsetup v.0.2.0 install rcall, github and R packages for did. 14apr2021 by Nick CH-K
 prog def didsetup
 
 	version 14

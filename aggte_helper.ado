@@ -1,4 +1,4 @@
-*! aggte_helper v.0.1.0 F in R's did package. 05apr2021 by Nick CH-K
+*! aggte_helper v.0.2.0 Estimate aggregated treatment effects in R's did package. 14apr2021 by Nick CH-K
 prog def aggte_helper, rclass
 
 	version 14

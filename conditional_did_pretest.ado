@@ -1,15 +1,38 @@
-*! att_gt_helper v.0.2.0 Run att_gt in R's did package. 14apr2021 by Nick CH-K
-prog def att_gt_helper, rclass
+*! conditional_did_pretest v.0.2.0 Run conditional_did_pretest in R's did package. 14apr2021 by Nick CH-K
+prog def conditional_did_pretest, rclass
 
 	version 14
 
 	syntax varlist(min=3) [if] [in] [iweight], ///
-		[clearR replace panel_no idname(varname) xformla(string) allow_unbalanced_panel control_group(varlist) ///
-		anticipation(integer 0) alp(real 0.05) bootstrap_no cband_no biters(integer 1000) ///
-		clustervars(varlist max=2) est_method(string) pl cores(integer 1)]
+		[clearR panel_no idname(varname) xformla(string) allow_unbalanced_panel control_group(varlist) ///
+		ALPha(real 0.05) bootstrap_no cband_no biters(integer 1000) ///
+		CLUStervars(varlist max=2) est_method(string) pl cores(integer 1)]
+	marksample touse
 	
 	quietly{
 	
+	* Limit to estimation sample
+	preserve
+	keep if `touse'
+	keep `varlist' `idname' `clustervars' `weight'
+	
+	* This check nicked from Jonathan Roth's staggered package
+	capture findfile rcall.ado
+	if _rc != 0 {
+	 display as error "rcall package must be installed. Run didsetup."
+	 error 198
+	}
+	
+	* did requires version 4.0+
+	rcall_check, rversion(4.0)
+	
+	capture rcall: library(did)
+	if _rc != 0{
+		display as error "Package (did) is missing. Run didsetup."
+		exit
+	} 
+
+	* NOW TO RUN THE THING
 	* Convert binary options to their R-appropriate versions
 	* Restart the R session if desired
 	if "`clearR'" == "clearR" {
@@ -17,7 +40,7 @@ prog def att_gt_helper, rclass
 	}	
 	
 	* Make sure to get rid of old results lest we error here and refer back to them!
-	rcall: suppressWarnings(try(rm(CS_Model)))
+	rcall: suppressWarnings(try(rm(did_pretest)))
 	return clear
 	
 	local boot_TF = "TRUE"
@@ -149,16 +172,14 @@ prog def att_gt_helper, rclass
 		local weight = "NULL"
 	}
 	
+	display as error "{cmd: conditional_did_pretest} is very slow, expect to wait at least a minute."
+	
 	* Run interactively so other functions can use
 	* the model output
 	* "dotter" turns R NA's into Stata NA's
 	noisily rcall: library(did); ///
 		d <- data.frame(st.data()); ///
-		dotter <- function(M) {; ///
-			if (sum(is.na(M)) > 0) M[is.na(M)] <- '.'; ///
-			return(M) ; ///
-		}; ///
-		err <- try(CS_Model <- att_gt(yname = '`yname'', ///
+		errpt <- try(did_pretest <- conditional_did_pretest(yname = '`yname'', ///
 							tname = '`tname'', ///
 							idname = `idname', ///
 							gname = '`gname'', ///
@@ -167,7 +188,6 @@ prog def att_gt_helper, rclass
 							panel = `panel_TF', ///
 							allow_unbalanced_panel = `allow_unbalanced_panel_TF', ///
 							control_group = '`control_group'', ///
-							anticipation = `anticipation', ///
 							weightsname = `weight', ///
 							alp = `alp', ///
 							bstrap = `boot_TF', ///
@@ -177,24 +197,22 @@ prog def att_gt_helper, rclass
 							est_method = '`est_method'', ///
 							print_details = FALSE, ///
 							pl = `pl_TF', cores = `cores' )); ///
-		if (inherits(err, 'try-error')) { ///
-			error <- err[1] ///
+		if (inherits(errpt, 'try-error')) { ///
+			error <- errpt[1] ///
 		} else { ///
-			cband_type <- ifelse(CS_Model[['DIDparams']][['bstrap']], ///
-                         ifelse(CS_Model[['DIDparams']][['cband']], "Simult", "Pointwise"), ///
-                         "Pointwise"); ///
-			cibot <- paste0(cband_type,'CI',100*(1-CS_Model[['alp']]),'_Bot'); ///
-			citop <- paste0(cband_type,'CI',100*(1-CS_Model[['alp']]),'_Top'); ///
-  			table <- dotter(cbind(CS_Model[['group']], CS_Model[['t']], CS_Model[['att']], CS_Model[['se']], ///
-					CS_Model[['att']] - CS_Model[['c']]*CS_Model[['se']], ///
-					CS_Model[['att']] + CS_Model[['c']]*CS_Model[['se']])); ///
-			colnames(table) <- c('Group','Time','ATTgt','SE', cibot, citop); /// 
-			vcv_analytical <- dotter(as.matrix(CS_Model[['V_analytical']])); ///
-			critical_value <- CS_Model[['c']]; ///
-			rm(cibot, citop, cband_type) ///
+			CvM_stat <- did_pretest[['CvM']]; ///
+			CvM_crit_val <- did_pretest[['CvMcval']]; ///
+			CvM_p_val <- did_pretest[['CvMpval']]; ///
+			KS_stat <- did_pretest[['KS']]; ///
+			KS_crit_val <- did_pretest[['KScval']]; ///
+			KS_p_val <- did_pretest[['Kspval']]; ///
 		}
+	
+	noisily rcall: if(exists('did_pretest')) { print(summary(did_pretest)) } else {print('R failed to produce a model, or rcall failed to return it to Stata.') }
 	
 	return add
 	
+	restore	
+
 	}
 end

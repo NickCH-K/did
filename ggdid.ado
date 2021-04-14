@@ -1,4 +1,4 @@
-*! ggdid v.0.1.0 Following att_gt or aggte, run ggdid in R's did package. 05apr2021 by Nick CH-K
+*! ggdid v.0.2.0 Following att_gt or aggte, run ggdid in R's did package. 14apr2021 by Nick CH-K
 prog def ggdid
 
 	version 14

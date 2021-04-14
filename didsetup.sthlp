@@ -1,10 +1,11 @@
 {smcl}
-{* *! version 0.1.0  05apr2021}{...}
+{* *! version 0.2.0  14apr2021}{...}
 {vieweralsosee "att_gt" "help att_gt"}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
 {vieweralsosee "did" "help did"}{...}
 {vieweralsosee "ggdid" "help aggte"}{...}
 {vieweralsosee "mpdta" "help mpdta"}{...}
+{vieweralsosee "conditional_did_pretest" "help conditional_did_pretest"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
 {viewerjumpto "Syntax" "diddsetup##syntax"}{...}

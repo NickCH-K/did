@@ -1,29 +1,29 @@
 {smcl}
 {* *! version 0.2.0  14apr2021}{...}
 {vieweralsosee "aggte" "help aggte"}{...}
+{vieweralsosee "att_gt" "help aggte"}{...}
 {vieweralsosee "did" "help did"}{...}
 {vieweralsosee "ggdid" "help aggte"}{...}
 {vieweralsosee "didsetup" "help didsetup"}{...}
 {vieweralsosee "mpdta" "help mpdta"}{...}
-{vieweralsosee "conditional_did_pretest" "help conditional_did_pretest"}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[TE] teffects intro" "help teffects intro"}{...}
-{viewerjumpto "Syntax" "att_gt##syntax"}{...}
-{viewerjumpto "Description" "att_gt##description"}{...}
-{viewerjumpto "Author" "att_gt##author"}{...}
-{viewerjumpto "References" "att_gt##references"}{...}
-{viewerjumpto "Examples" "att_gt##examples"}{...}
+{viewerjumpto "Syntax" "conditional_did_pretest##syntax"}{...}
+{viewerjumpto "Description" "conditional_did_pretest##description"}{...}
+{viewerjumpto "Author" "conditional_did_pretest##author"}{...}
+{viewerjumpto "References" "conditional_did_pretest##references"}{...}
+{viewerjumpto "Examples" "conditional_did_pretest##examples"}{...}
 {title:att_gt}
 
 {phang}
-{bf:att_gt} {hline 2} Run att_gt in R's did package
+{bf:conditional_did_pretest} {hline 2} Run conditional_did_pretest in R's did package
 
 
 {marker syntax}{...}
 {title:Syntax}
 
 {p 8 17 2}
-{cmd:att_gt} {help depvar} tvar gvar {help varlist} [{help if}] [{help in}] [{help iweight}], [{it:options}]
+{cmd:conditional_did_pretest} {help depvar} tvar gvar {help varlist} [{help if}] [{help in}] [{help iweight}], [{it:options}]
 
 {synoptset 20 tabbed}{...}
 {synopthdr}
@@ -37,7 +37,7 @@
 			It defines which "group" a unit belongs to. It should be 0 for units in the untreated group.{p_end}
 {synopt:{opt varlist}} Variables to be included as controls. Be very careful with value labels and factor variables; 
 			see the Description below.{p_end}
-{synopt:{opt clearR}} Start a new R environment before running {cmd: did::att_gt}.{p_end}
+{synopt:{opt clearR}} Start a new R environment before running {cmd: did::conditional_did_pretest}.{p_end}
 {synopt:{opt panel_no}} By default, estimation assumes the data is a panel, which should be provided 
 			in long format – that is, where each row corresponds to a unit observed at a particular point in time. 
 			When using a panel dataset, the {opt idname} must be set. With {opt panel_no}, the data is treated 
@@ -51,7 +51,7 @@
 			See {browse "https://www.youtube.com/watch?v=ZKWQR62Ph-c": this video} 
 			for a more thorough walkthrough on R regression formula syntax.{p_end}
 {synopt:{opt allow_unbalanced_panel}} Whether or not function should "balance" the panel with respect 
-			to time and id. Without this option, {cmd:att_gt} will drop all units where data is not observed 
+			to time and id. Without this option, {cmd:conditional_did_pretest} will drop all units where data is not observed 
 			in all periods. The advantage of this is that the computations are faster 
 			(sometimes substantially).{p_end}
 {synopt:{opt control_group(string)}} Which units to use the control group. 
@@ -61,9 +61,6 @@
 			is set to the group of units that have not yet participated in the treatment in that time period. 
 			This includes all never treated units, but it includes additional units that eventually participate 
 			in the treatment, but have not participated yet.{p_end}
-{synopt:{opt anticipation(integer)}} The number of time periods before participating in the treatment 
-			where units can anticipate participating in the treatment and therefore it can affect 
-			their untreated potential outcomes. By default 0.{p_end}
 {synopt:{opt alp(real)}} The significance level, default .05.{p_end}
 {synopt:{opt bootstrap_no}} Compute standard errors analytically rather than with multiplier bootstrap. 
 			Note the analytic standard errors only allow clustering at the {opt idname} level.{p_end}
@@ -94,9 +91,15 @@
 {title:Description}
 
 {pstd}
-{cmd: att_gt} computes average treatment effects in DID setups where there are more than two periods of data 
-and allowing for treatment to occur at different points in time and allowing for treatment effect heterogeneity 
-and dynamics. See Callaway and Sant'Anna (2020) for a detailed description.
+{cmd: conditional_did_pretest} performs an integrated moments test for the conditional parallel trends 
+assumption holding in all pre-treatment time periods for all groups. See Callaway and Sant'Anna (2020) 
+for a detailed description. The syntax for {cmd: conditional_did_pretest} is the same as the syntax
+for {cmd: att_gt} except that the {opt anticipation} option is not allowed.
+
+{pstd}
+{cmd: conditional_did_pretest} is {it: very slow}. Expect it to take at least a minute
+to run, probably more. Ideally there will be a progress bar visible in the R window, but this does not
+always show up properly. Relax and wait, it is probably still working.
 
 {pstd}
 Note that {it: all variable names must be legitimate variable names in R as well}. 
@@ -114,24 +117,18 @@ and include that variable using "factor(X)". Or just use {cmd: decode} on it bef
 running {cmd: att_gt} and include that version instead. 
 
 {pstd}
-A full set of results is returned in {cmd: ereturn list} and you can extract any part of the results table from {cmd: r(table)}.
-and so results should be compatible with at least some Stata postestimation tools.
+A full set of results is returned in {cmd: return list}. Here you can find the test statistic,
+critical values (given {opt alpha}) and p-values for the Cramer von Mises and Kolmogorov-Smirnov
+test statistics, depending on which applies to the set of options you have chosen.
 
 {pstd}
-Although some caution is warranted before you go doing all sorts of postestimation {it: testing}. 
-Default standard errors are from the multiplier bootstrap. This provides only the diagonal. So if you
-want to do a joint hypothesis test, you'll want analytical standard errors with {opt bootstrap_no}.
-Also, see the paper to figure out the appropriate null distribution. The relevant critical value
-(simultaneous by default) is in {cmd: r(critical_value)}.
-
-{pstd}
-After {cmd: att_gt} completes, the estimated R model object can be accessed through {cmd: rcall}. It is named CS_Model
-(Callaway and Sant'Anna Model), and is an MP object as created by the R {cmd:did} package. See the 
-{browse "https://cran.r-project.org/web/packages/did/did.pdf": documentation for the MP function} to see
-what else you might be able to extract from the object. For example, if you wanted the influence function from estimation,
-you could get it with {cmd: rcall: CS_Model[['inffunc']]} (note that {cmd: rcall: CS_Model$inffunc} would be ill-advised;
-despite being valid R code, the $ confuses Stata since that's the marker for globals). Or perhaps
-{cmd: rcall: write.csv(CS_Model[['inffunc']], 'inffunc.csv') } to save it to CSV. See the {cmd: rcall} documentation
+After {cmd: conditional_did_pretest} completes, the estimated R model object can be accessed through {cmd: rcall}. 
+It is named did_pretest, and is an MP.TEST object as created by the R {cmd:did} package. See the 
+{browse "https://cran.r-project.org/web/packages/did/did.pdf": documentation for the MP.TEST function} to see
+what else you might be able to extract from the object. For example, if you wanted the vector of bootstrapped 
+Cramer von Mises test statistics, you could get it with {cmd: rcall: CS_Model[['CvMb']]} (
+note that {cmd: rcall: CS_Model$CvMb} would be ill-advised;
+despite being valid R code, the $ confuses Stata since that's the marker for globals). See the {cmd: rcall} documentation
 for more information on passing things directly back to Stata. 
 
 {marker author}{...}
@@ -150,6 +147,5 @@ nhuntington-klein@seattleu.edu
 {title:Examples}
 
 {phang}{cmd:. mpdta, clear}{p_end}
-{phang}{cmd:. att_gt lemp year firsttreat lpop, idname(countyreal)}{p_end}
-{phang}{cmd:. matrix list r(table)}{p_end}
+{phang}{cmd:. conditional_did_pretest lemp year firsttreat lpop, idname(countyreal)}{p_end}
 
