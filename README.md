@@ -31,7 +31,11 @@ Callaway, Brantly and Pedro H.C. Sant'Anna. "did: Difference in Differences." R 
 
 Finally, should you also cite this package, which acts purely as a Stata wrapper for their R package which actually does all the work? I don't know! There's not really a citation standard for this sort of thing. I certainly wouldn't mind it though. A few more years until tenure review, just sayin'.
 
-Huntington-Klein, Nick. "'did': Use the Callaway and Sant'anna R package 'did' in Stata." Stata package version 0.2.0. [https://github.com/NickCH-K/did](https://github.com/NickCH-K/did).
+Huntington-Klein, Nick. "'did': Use the Callaway and Sant'Anna R package 'did' in Stata." Stata package version 0.2.0. [https://github.com/NickCH-K/did](https://github.com/NickCH-K/did).
+
+And if you're really feeling it (citing a dependency? Alas and alack we have no guide), there's also the [rcall package](https://github.com/haghish/Rcall), which allows me to use R from Stata. This package could not be built without it.
+
+Haghish, E. F. "Seamless interactive language interfacing between R and Stata." The Stata Journal 19.1 (2019): 61-82.
 
 BibTeX entries for citations:
 
@@ -53,10 +57,21 @@ BibTeX entries for citations:
  }
   
 @Misc{,
-    title = {'did': Use the Callaway and Sant'anna R package 'did' in Stata},
+    title = {'did': Use the Callaway and Sant'Anna R package 'did' in Stata},
     author = {Huntington-Klein, Nick},
     year = {2021},
     note = {Stata package version 0.2.0},
     url = {https://github.com/NickCH-K/did},
 } 
+
+@article{haghish2019seamless,
+  title={Seamless Interactive Language Interfacing between R and Stata},
+  author={Haghish, E.F.},
+  journal={The Stata Journal},
+  volume={19},
+  number={1},
+  pages={61--82},
+  year={2019},
+  publisher={SAGE Publications Sage CA: Los Angeles, CA}
+}
 ```
