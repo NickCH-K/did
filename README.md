@@ -13,7 +13,13 @@ Functions included in this package:
 - `ggdid` to produce graphs of either `att_gt` or `aggte` output
 - `conditional_did_pretest` to perform an integrated moments test of the conditional parallel trends assumption
 
-You can install **did** with `net install did, from("https://raw.githubusercontent.com/NickCH-K/did/master/")`. Make sure the [R language](R-project.org) is installed on your computer. Then run `didsetup` in Stata.
+You can install **did** with 
+
+```
+net install did, from("https://raw.githubusercontent.com/NickCH-K/did/master/") replace
+```
+
+Make sure the [R language](R-project.org) is installed on your computer. Then run `didsetup` in Stata.
 
 ## Citation
 

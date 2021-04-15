@@ -103,6 +103,13 @@ Note that {it: all variable names must be legitimate variable names in R as well
 This isn't generally a problem though.
 
 {pstd}
+Asking {cmd: att_gt} to work with an enormous number of group/time combinations is the most likely way
+that your analysis will fail (or that some matrix or table will get too big for {cmd: rcall} to be able to bring
+it back to Stata). If there is an error, there's a decent chance this is the problem. If your analysis
+produces an error, try {cmd: rcall: summary(CS_Model)}. If you see results, then your model did run,
+but {cmd: rcall} was unable to bring it back to Stata.
+
+{pstd}
 Be careful with factor variables! Value labels will be ignored for all variables except those in 
 {opt varlist} (i.e. the control variables). Variables with value labels in {opt varlist} will be
 treated as factors. Unlabeled values will be included as a category based on their actual value.

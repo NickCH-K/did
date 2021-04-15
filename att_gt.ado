@@ -71,10 +71,22 @@ prog def att_gt, eclass
 		matrix rownames V = `namevec'
 	}	
 	if "`bootstrap_no'" == "bootstrap_no" {
-		matrix V = r(vcv_analytical)
+		* It is often too big to bring back by rcall
+		* So get it by file
+		preserve
+		
+		* Bring in file
+		import delimited "temp_vcv_toobig.csv", clear
+		drop v1
+		mkmat *, matrix(V)
+		
+		restore
+		
 		matrix colnames V = `namevec'
 		matrix rownames V = `namevec'
 	}
+	
+	cap erase "temp_vcv_toobig.csv"
 	
 	ereturn post b V, o(`N') e(`touse')
 	}
