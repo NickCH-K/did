@@ -4,7 +4,7 @@ prog def att_gt_helper, rclass
 	version 14
 
 	syntax varlist(min=3) [if] [in] [iweight], ///
-		[clearR replace panel_no idname(varname) xformla(string) allow_unbalanced_panel control_group(varlist) ///
+		[clearR replace panel_no idname(varname) xformla(string) allow_unbalanced_panel control_group(string) ///
 		anticipation(integer 0) alp(real 0.05) bootstrap_no cband_no biters(integer 1000) ///
 		clustervars(varlist max=2) est_method(string) pl cores(integer 1)]
 	
