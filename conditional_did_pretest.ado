@@ -4,7 +4,7 @@ prog def conditional_did_pretest, rclass
 	version 14
 
 	syntax varlist(min=3) [if] [in] [iweight], ///
-		[clearR panel_no idname(varname) xformla(string) allow_unbalanced_panel control_group(varlist) ///
+		[clearR panel_no idname(varname) xformla(string) allow_unbalanced_panel control_group(string) ///
 		ALPha(real 0.05) bootstrap_no cband_no biters(integer 1000) ///
 		CLUStervars(varlist max=2) est_method(string) pl cores(integer 1)]
 	marksample touse
