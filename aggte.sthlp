@@ -46,7 +46,7 @@
 			By default, all lengths of exposure are computed.{p_end}
 {synopt:{opt max_e(integer)}} For event studies, this is the largest event time to compute dynamic effects for. 
 			By default, all lengths of exposure are computed.{p_end}
-{synopt:{opt na_rm}} Remove missing values from analysis.{p_end}
+{synopt:{opt na_rm}} Remove missing values from analysis. Use this if your results have missing values in them, which should be reported to you in the {cmd:att_gt} output.{p_end}
 {synopt:{opt alp(real)}} The significance level. The default is whatever value was set in the {cmd: att_gt} call.{p_end}
 {synopt:{opt bootstrap}} If {cmd: att_gt} was estimated using {opt bootstrap_no}, but you {it: do} want bootstrap in {cmd: aggte}, 
 			specify this option.{p_end}
