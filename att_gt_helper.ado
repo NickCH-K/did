@@ -189,6 +189,10 @@ prog def att_gt_helper, rclass
 					CS_Model[['att']] - CS_Model[['c']]*CS_Model[['se']], ///
 					CS_Model[['att']] + CS_Model[['c']]*CS_Model[['se']])); ///
 			colnames(table) <- c('Group','Time','ATTgt','SE', cibot, citop); /// 
+			if (nrow(table) > 50) { ///
+				write.csv(as.data.frame(table), 'temp_table_toobig.csv'); ///
+				rm(table) ; ///
+			}; ///
 			write.csv(as.data.frame(as.matrix(CS_Model[['V_analytical']])), 'temp_vcv_toobig.csv'); ///
 			critical_value <- CS_Model[['c']]; ///
 			rm(cibot, citop, cband_type) ///

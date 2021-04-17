@@ -46,6 +46,11 @@ prog def att_gt, eclass
 	restore	
 	
 	* Names
+	* Check if the table was small enough to restore normally
+	cap matrix list r(table)
+	if _rc > 0 {
+		did_table_returner, name(table) file(temp_table_toobig)
+	}
 	matrix T = r(table)
 	local numgroups = rowsof(T)
 	local namevec = ""
@@ -77,7 +82,9 @@ prog def att_gt, eclass
 		
 		* Bring in file
 		import delimited "temp_vcv_toobig.csv", clear
-		drop v1
+		cap drop v1
+		* Drop any -Inf etc.
+		destring *, replace force
 		mkmat *, matrix(V)
 		
 		restore
@@ -88,6 +95,15 @@ prog def att_gt, eclass
 	
 	cap erase "temp_vcv_toobig.csv"
 	
-	ereturn post b V, o(`N') e(`touse')
+	cap ereturn post b V, o(`N') e(`touse')
+	if _rc > 0 {
+		cap ereturn post b, o(`N') e(`touse')
+		if _rc > 0 {
+			display as error "Missing values in estimation results; results have not been delivered to e() matrices."
+		}
+		else {
+			display as error "Missing values in V/COV matrix; variance matrix has not been delivered to e(V)."
+		}
+	}
 	}
 end
