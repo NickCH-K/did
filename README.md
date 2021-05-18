@@ -1,4 +1,7 @@
 # did
+
+**NOTE: DUE TO AN RCALL UPDATE, SOME ELEMENTS OF THE AGGTE FUNCTION HAVE BROKEN IN WAYS THAT ARE VERY DIFFICULT TO FIX. UNTIL RCALL IS UPDATED AGAIN, AGGTE MAY NOT WORK. INSTEAD, AFTER RUNNING att_gt, DO rcall: aggte(CS_Model)**
+
 A Stata package that acts as a wrapper for Callaway and Sant'Anna's R did package. This makes heavy use of the [rcall](http://github.com/haghish/rcall) package by Haghish.
 
 This package is fully functional, although it is also relatively untested and there may remain some bugs. Thankfully, since all the calculation is done in the R package, those bugs are more likely to give you no results than to give you wrong ones.
